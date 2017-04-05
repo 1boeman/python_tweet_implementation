@@ -37,7 +37,6 @@ def main ():
   print 'Log file is "', logfile
 
   get_user_events(inputdir,logfile)
-  tweet('plop')  
 
 
 def get_user_events(directory,logfile):
@@ -130,9 +129,8 @@ def tweet (tweet_string):
   
   print(api.VerifyCredentials())
 
-  status = api.PostUpdate(tweetstring)
+  status = api.PostUpdate(tweet_string)
   print status.text
   time.sleep(60)
-
 
 main()
