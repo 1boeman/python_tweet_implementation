@@ -100,13 +100,15 @@ def get_user_events(directory,logfile):
                 venue_string += venue_freetext[0].text
  
               tweet_string_list = [title + ": " ]
-              tweet_string_list.append ("https://muziekladder.nl/node/" + node_id + " \n")
+              tweet_string_list.append ("https://muziekladder.nl/node/" + node_id + " ")
               tweet_string_list.append(venue_string)
               tweet_string_list.append(city_string)
               
               tweet_string = u' '.join(tweet_string_list).encode('utf-8').strip() 
+              
             print tweet_string 
             log.write (check_string)
+ 
             tweet(tweet_string)
             just_tweeted.append(node_id)
 
@@ -124,13 +126,20 @@ def string_in_file(string, file_path):
         found = True
   return found
 
+
+def truncate(s, length):
+  if len (s) > length:
+    s = s[:length-3]+'...'
+  return s
+
 def tweet (tweet_string):
+  max_length = 140
   api = settings.api
   
-  print(api.VerifyCredentials())
-
+  tweet_string = truncate(tweet_string,140)
+  print tweet_string
   status = api.PostUpdate(tweet_string)
   print status.text
-  time.sleep(60)
+  time.sleep(15*61)
 
 main()
